@@ -12,11 +12,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("ProdutoConnection");
+var connectionStringProduto = builder.Configuration.GetConnectionString("ProdutoConnection");
+var connectionStringCategoria = builder.Configuration.GetConnectionString("CategoriaConnection");
 
 builder.Services.AddDbContext<ProdutoContext>(options => 
 {
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    options.UseMySql(connectionStringProduto, ServerVersion.AutoDetect(connectionStringProduto));
+});
+
+builder.Services.AddDbContext<CategoriaContext>(options =>
+{
+    options.UseMySql(connectionStringCategoria, ServerVersion.AutoDetect(connectionStringCategoria));
 });
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
