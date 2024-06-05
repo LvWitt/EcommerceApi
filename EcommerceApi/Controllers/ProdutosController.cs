@@ -10,10 +10,10 @@ namespace EcommerceApi.Controllers;
 [Route("[controller]")]
 public class ProdutosController : ControllerBase
 {
-    private readonly ProdutoContext _context;
+    private readonly Csm40Context _context;
     private readonly IMapper _mapper;
 
-    public ProdutosController(ProdutoContext context, IMapper mapper)
+    public ProdutosController(Csm40Context context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;

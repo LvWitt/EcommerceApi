@@ -13,8 +13,8 @@ namespace EcommerceApi.Models
         public string? Cpf { get; set; }
         [Required(ErrorMessage = "Cep eh obrigatorio")]
         public int Cep { get; set; }
-        public int Rua { get; set; }
-        public int Cidade { get; set; }
+        public string? Rua { get; set; }
+        public string? Cidade { get; set; }
         public string? Numero { get; set; }
         public string? Complemento { get; set; }
     }

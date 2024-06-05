@@ -2,6 +2,7 @@ using EcommerceApi.Data;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using System;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,18 +13,28 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionStringProduto = builder.Configuration.GetConnectionString("ProdutoConnection");
-var connectionStringCategoria = builder.Configuration.GetConnectionString("CategoriaConnection");
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
-builder.Services.AddDbContext<ProdutoContext>(options => 
+
+//var connectionStringProduto = builder.Configuration.GetConnectionString("ProdutoConnection");
+//var connectionStringCategoria = builder.Configuration.GetConnectionString("CategoriaConnection");
+var connectionStringCsm40 = builder.Configuration.GetConnectionString("Csm40Connection");
+
+builder.Services.AddDbContext<Csm40Context>(options =>
 {
-    options.UseMySql(connectionStringProduto, ServerVersion.AutoDetect(connectionStringProduto));
+    options.UseMySql(connectionStringCsm40, ServerVersion.AutoDetect(connectionStringCsm40));
 });
 
-builder.Services.AddDbContext<CategoriaContext>(options =>
-{
-    options.UseMySql(connectionStringCategoria, ServerVersion.AutoDetect(connectionStringCategoria));
-});
+//builder.Services.AddDbContext<ProdutoContext>(options => 
+//{
+//    options.UseMySql(connectionStringProduto, ServerVersion.AutoDetect(connectionStringProduto));
+//});
+
+//builder.Services.AddDbContext<CategoriaContext>(options =>
+//{
+//    options.UseMySql(connectionStringCategoria, ServerVersion.AutoDetect(connectionStringCategoria));
+//});
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
